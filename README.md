@@ -1,0 +1,1 @@
+<h1>ICT3102 Flask Server</h1>
