@@ -1,0 +1,39 @@
+{% extends 'master.html' %}
+{% include 'header.html' %}
+{% block title %} ICT3102 - Team 13 {% endblock %}
+{% block body %}
+
+<div id="location">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title align-middle">Beacon 1</h5>
+                    <p class="card-address">Beacon Address: </p>
+                    <p class="card-location">Beacon Location: </p>
+                    <p class="card-timestamp">Beacon Timestamp: </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Beacon 1</h5>
+                    <p class="card-address">Beacon Address</p>
+                    <p class="card-location">Beacon Location</p>
+                    <p class="card-timestamp">Beacon Timestamp</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
