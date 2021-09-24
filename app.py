@@ -9,7 +9,7 @@ OLD_DURATION = 20  # Period of beacons to keep
 
 
 @app.route('/post', methods=["POST"])
-def testpost():
+def beaconPost():
      # input_json = request.get_json(force=True)
      # dictToReturn = {'MAC_ADD':input_json['MAC_ADD'],  "RSSI" :input_json['RSSI'] , 'Staff_ID': input_json['Staff_ID']}
      #once data is recieved call the api
@@ -18,7 +18,9 @@ def testpost():
      #retrieve a list of beacon objects
      beaconObjList = {"Beacon" : input_json['Beacon']}
      # Store the beacon list
-     staff_id = 0
+     staff_id = int(beaconObjList['Beacon'][0]['STAFF_ID'])
+     if staff_id > 1:
+         staff_id = 1
      store_beacon_list(beaconObjList['Beacon'][0], staff_id=staff_id)
      for data in beaconObjList["Beacon"]:
         print(data)
@@ -78,13 +80,16 @@ def retrieve_all_staff_beacons():
     return first_staff, second_staff, first_staff_timestamp, second_staff_timestamp
 
 
+@app.route('/update', methods=["GET"])
+def update():
+    return jsonify(retrieve_all_staff_beacons())
+
 @app.route('/')
 def home():
     first_staff, second_staff, first_staff_timestamp, second_staff_timestamp = retrieve_all_staff_beacons()
     return render_template("index.html", beaconMacAddress=first_staff['MAC_ADD'], beaconRSSI=first_staff['RSSI'],
                            beaconTimestamp=first_staff_timestamp, beacon2MacAddress=second_staff['MAC_ADD'],
                            beacon2RSSI=second_staff['RSSI'], beacon2Timestamp=second_staff_timestamp)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -9,12 +9,9 @@
             <div class="card h-100">
                 <div class="card-header text-center">Beacon 1</div>
                 <div class="card-body">
-                    <p class="card-address">Beacon Address: {{beaconMacAddress}}</p>
-                    <p class="card-location">Beacon Location: {{beaconRSSI}}</p>
-                    <p class="card-timestamp">Beacon Timestamp: {{beaconTimestamp}}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-address">Beacon Address: <span id="beaconMacAddress">{{beaconMacAddress}}</span></p>
+                    <p class="card-location">Beacon Location: <span id="beaconRSSI">{{beaconRSSI}}</span></p>
+                    <p class="card-timestamp">Beacon Timestamp: <span id="beaconTimestamp">{{beaconTimestamp}}</span></p>
                 </div>
             </div>
         </div>
@@ -22,18 +19,33 @@
             <div class="card h-100">
                 <div class="card-header text-center">Beacon 2</div>
                 <div class="card-body">
-                    <p class="card-address">Beacon Address: {{beacon2MacAddress}}</p>
-                    <p class="card-location">Beacon Location: {{beacon2RSSI}}</p>
-                    <p class="card-timestamp">Beacon Timestamp: {{beacon2Timestamp}}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <p class="card-address">Beacon Address: <span id="beacon2MacAddress">{{beacon2MacAddress}}</span></p>
+                    <p class="card-location">Beacon Location: <span id="beacon2RSSI">{{beacon2RSSI}}</span></p>
+                    <p class="card-timestamp">Beacon Timestamp: <span id="beacon2Timestamp">{{beacon2Timestamp}}</span></p>
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    (function(){
+        $.getJSON(
+            $SCRIPT_ROOT+"/update",
+            function(data) {
+                $('#beaconMacAddress').text(data[0].MAC_ADD)
+                $('#beaconRSSI').text(data[0].RSSI)
+                $('#beaconTimestamp').text(data[2])
+
+                $('#beacon2MacAddress').text(data[1].MAC_ADD)
+                $('#beacon2RSSI').text(data[1].RSSI)
+                $('#beacon2Timestamp').text(data[3])
+                console.log(data)
+            }
+        );
+        setTimeout(arguments.callee, 3000);
+    })();
+</script>
 {% endblock %}
 
