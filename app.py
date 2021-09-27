@@ -16,7 +16,7 @@ def beaconPost():
 
      input_json = request.get_json(force=True)
      #retrieve a list of beacon objects
-     beaconObjList = {"Beacon" : input_json['Beacon']}
+     beaconObjList = {"Beacon" : input_json}
      # Store the beacon list
      staff_id = int(beaconObjList['Beacon'][0]['STAFF_ID'])
      if staff_id > 1:
