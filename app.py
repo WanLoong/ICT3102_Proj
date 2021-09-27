@@ -48,7 +48,7 @@ def extract_beacon():
         start_time = request.args.get("start_time")
         end_time = request.args.get("end_time")
         data = retrieve_staff_beacons(staff_id, start_time, end_time)
-        return
+        return data
 
 
 def retrieve_staff_beacons(staff_id, start_timestamp, end_timestamp):
