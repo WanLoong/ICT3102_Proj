@@ -91,5 +91,5 @@ def home():
                            beaconTimestamp=first_staff_timestamp, beacon2MacAddress=second_staff['MAC_ADD'],
                            beacon2RSSI=second_staff['RSSI'], beacon2Timestamp=second_staff_timestamp)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000, debug=True)
