@@ -6,8 +6,11 @@ from flask_compress import Compress
 
 
 app = Flask(__name__)
+COMPRESS_ALGORITHM = ['gzip']
+app.config['COMPRESS_ALGORITHM'] = COMPRESS_ALGORITHM
 OLD_DURATION = 20  # Period of beacons to keep
 Compress(app)
+
 
 @app.route('/post', methods=["POST"])
 def beaconPost():
