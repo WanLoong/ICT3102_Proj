@@ -1,35 +1,36 @@
-
 from flask import Flask, render_template, request, abort, jsonify
 import sqlite3
 import time
 import json
+from flask_compress import Compress
+
 
 app = Flask(__name__)
 OLD_DURATION = 20  # Period of beacons to keep
-
+Compress(app)
 
 @app.route('/post', methods=["POST"])
 def beaconPost():
-     # input_json = request.get_json(force=True)
-     # dictToReturn = {'MAC_ADD':input_json['MAC_ADD'],  "RSSI" :input_json['RSSI'] , 'Staff_ID': input_json['Staff_ID']}
-     #once data is recieved call the api
+    # input_json = request.get_json(force=True)
+    # dictToReturn = {'MAC_ADD':input_json['MAC_ADD'],  "RSSI" :input_json['RSSI'] , 'Staff_ID': input_json['Staff_ID']}
+    # once data is recieved call the api
 
-     input_json = request.get_json(force=True)
-     #retrieve a list of beacon objects
-     beaconObjList = {"Beacon" : input_json}
-     # Store the beacon list
-     staff_id = int(beaconObjList['Beacon'][0]['STAFF_ID'])
-     if staff_id > 1:
-         staff_id = 1
-     store_beacon_list(beaconObjList['Beacon'][0], staff_id=staff_id)
-     for data in beaconObjList["Beacon"]:
-        print(data)
-     return jsonify(beaconObjList)
+    input_json = request.get_json(force=True)
+    # retrieve a list of beacon objects
+    beaconObjList = {"Beacon": input_json}
+    # Store the beacon list
+    staff_id = int(beaconObjList['Beacon'][0]['STAFF_ID'])
+    if staff_id > 1:
+        staff_id = 1
+    elif staff_id < 0:
+        staff_id = 0
+    store_beacon_list(beaconObjList['Beacon'][0], staff_id=staff_id)
+    return 200
 
 
 def store_beacon_list(beaconList, staff_id=0):
     current_timestamp = int(time.time())
-    old_timestamp = current_timestamp-OLD_DURATION
+    old_timestamp = current_timestamp - OLD_DURATION
     conn = sqlite3.connect("staff_db.sqlite")
     cur = conn.cursor()
     sql = f'INSERT INTO staff_' + str(staff_id) + f' (beacons, timestamp) VALUES (?, ?)'
@@ -54,7 +55,7 @@ def extract_beacon():
 def retrieve_staff_beacons(staff_id, start_timestamp, end_timestamp):
     conn = sqlite3.connect("staff_db.sqlite")
     cur = conn.cursor()
-    sql = "SELECT * FROM staff_"+staff_id+" WHERE timestamp BETWEEN ? AND ?"
+    sql = "SELECT * FROM staff_" + staff_id + " WHERE timestamp BETWEEN ? AND ?"
     cur.execute(sql, (start_timestamp, end_timestamp,))
     data = cur.fetchall()
     conn.close()
@@ -83,6 +84,7 @@ def retrieve_all_staff_beacons():
 @app.route('/update', methods=["GET"])
 def update():
     return jsonify(retrieve_all_staff_beacons())
+
 
 @app.route('/')
 def home():
