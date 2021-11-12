@@ -28,7 +28,7 @@ def beaconPost():
     elif staff_id < 0:
         staff_id = 0
     store_beacon_list(beaconObjList['Beacon'][0], staff_id=staff_id)
-    return 200
+    return "1"
 
 
 def store_beacon_list(beaconList, staff_id=0):
