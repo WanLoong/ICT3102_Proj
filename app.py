@@ -108,7 +108,7 @@ BEACON_LOCATIONS = {"DE69F34B12FB": "Lvl 1 Fire Fighting Lobby",
                     # Issued Beacons
                     "EE2CD56C064D": "Issued Beacon 1",
                     "EE53E2BFC002": "Issued Beacon 2",
-                    "Add1": "Test"}
+                    "Add1": "Default Test Location Value"}
 
 
 @app.route('/post', methods=["POST"])
