@@ -186,8 +186,14 @@ def retrieve_all_staff_beacons():
 @app.route('/update', methods=["GET"])
 def update():
     first_staff, second_staff, first_staff_timestamp, second_staff_timestamp = retrieve_all_staff_beacons()
-    first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
-    second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    try:
+        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    except KeyError:
+        first_staff_loc = "Unknown Location"
+    try:
+        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    except KeyError:
+        second_staff_loc = "Unknown Location"
     return jsonify([{'MAC_ADD': first_staff['MAC_ADD'], 'RSSI': first_staff['RSSI'],
                      'timestamp': first_staff_timestamp, 'location': first_staff_loc},
                     {'MAC_ADD': second_staff['MAC_ADD'], 'RSSI': second_staff['RSSI'],
@@ -198,8 +204,14 @@ def update():
 @app.route('/')
 def home():
     first_staff, second_staff, first_staff_timestamp, second_staff_timestamp = retrieve_all_staff_beacons()
-    first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
-    second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    try:
+        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    except KeyError:
+        first_staff_loc = "Unknown Location"
+    try:
+        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+    except KeyError:
+        second_staff_loc = "Unknown Location"
     return render_template("index.html", beaconMacAddress=first_staff['MAC_ADD'], beaconRSSI=first_staff['RSSI'],
                            beaconTimestamp=first_staff_timestamp, beacon2MacAddress=second_staff['MAC_ADD'],
                            beacon2RSSI=second_staff['RSSI'], beacon2Timestamp=second_staff_timestamp,
