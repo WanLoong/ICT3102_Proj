@@ -187,11 +187,11 @@ def retrieve_all_staff_beacons():
 def update():
     first_staff, second_staff, first_staff_timestamp, second_staff_timestamp = retrieve_all_staff_beacons()
     try:
-        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "").replace(" ", "")]
     except KeyError:
         first_staff_loc = "Unknown Location"
     try:
-        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "").replace(" ", "")]
     except KeyError:
         second_staff_loc = "Unknown Location"
     return jsonify([{'MAC_ADD': first_staff['MAC_ADD'], 'RSSI': first_staff['RSSI'],
@@ -205,11 +205,11 @@ def update():
 def home():
     first_staff, second_staff, first_staff_timestamp, second_staff_timestamp = retrieve_all_staff_beacons()
     try:
-        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+        first_staff_loc = BEACON_LOCATIONS[str(first_staff['MAC_ADD']).replace(":", "").replace("-", "").replace(" ", "")]
     except KeyError:
         first_staff_loc = "Unknown Location"
     try:
-        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "")]
+        second_staff_loc = BEACON_LOCATIONS[str(second_staff['MAC_ADD']).replace(":", "").replace("-", "").replace(" ", "")]
     except KeyError:
         second_staff_loc = "Unknown Location"
     return render_template("index.html", beaconMacAddress=first_staff['MAC_ADD'], beaconRSSI=first_staff['RSSI'],
