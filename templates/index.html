@@ -10,7 +10,8 @@
                 <div class="card-header text-center">Beacon 1</div>
                 <div class="card-body">
                     <p class="card-address">Beacon Address: <span id="beaconMacAddress">{{beaconMacAddress}}</span></p>
-                    <p class="card-location">Beacon Location: <span id="beaconRSSI">{{beaconRSSI}}</span></p>
+                    <p class="card-location">Beacon RSSI: <span id="beaconRSSI">{{beaconRSSI}}</span></p>
+                    <p class="card-location">Beacon Location: <span id="beaconLocation">{{beaconLoc}}</span></p>
                     <p class="card-timestamp">Beacon Timestamp: <span id="beaconTimestamp">{{beaconTimestamp}}</span></p>
                 </div>
             </div>
@@ -20,7 +21,8 @@
                 <div class="card-header text-center">Beacon 2</div>
                 <div class="card-body">
                     <p class="card-address">Beacon Address: <span id="beacon2MacAddress">{{beacon2MacAddress}}</span></p>
-                    <p class="card-location">Beacon Location: <span id="beacon2RSSI">{{beacon2RSSI}}</span></p>
+                    <p class="card-location">Beacon RSSI: <span id="beacon2RSSI">{{beacon2RSSI}}</span></p>
+                    <p class="card-location">Beacon Location: <span id="beacon2Location">{{beacon2Loc}}</span></p>
                     <p class="card-timestamp">Beacon Timestamp: <span id="beacon2Timestamp">{{beacon2Timestamp}}</span></p>
                 </div>
             </div>
@@ -36,11 +38,13 @@
             function(data) {
                 $('#beaconMacAddress').text(data[0].MAC_ADD)
                 $('#beaconRSSI').text(data[0].RSSI)
-                $('#beaconTimestamp').text(data[2])
+                $('#beaconTimestamp').text(data[0].timestamp)
+                $('#beaconLocation').text(data[0].location)
 
                 $('#beacon2MacAddress').text(data[1].MAC_ADD)
                 $('#beacon2RSSI').text(data[1].RSSI)
-                $('#beacon2Timestamp').text(data[3])
+                $('#beacon2Timestamp').text(data[1].timestamp)
+                $('#beacon2Location').text(data[1].location)
                 console.log(data)
             }
         );
