@@ -11,11 +11,11 @@ services:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
     volumes:
-      - ".:/ICT3102_Proj"
+      - ".:/ICT3102_Proj_old"
     ports:
-      - "5000:5000"
+      - "5001:5001"
     expose:
-      - "5000"
+      - "5001"
     mem_limit: 512m
     mem_reservation: 256M
     cpus: 1

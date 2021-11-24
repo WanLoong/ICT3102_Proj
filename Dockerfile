@@ -5,8 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 RUN apt-get install -y python3-pip
 
-ADD . /ICT3102_Proj
-WORKDIR /ICT3102_Proj
+ADD . /ICT3102_Proj_old
+WORKDIR /ICT3102_Proj_old
 
 COPY ./requirements.txt ./requirements.txt
 
