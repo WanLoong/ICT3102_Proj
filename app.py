@@ -6,7 +6,9 @@ from flask_compress import Compress
 
 app = Flask(__name__)
 COMPRESS_ALGORITHM = ['gzip']
+COMPRESS_SIZE = 400
 app.config['COMPRESS_ALGORITHM'] = COMPRESS_ALGORITHM
+app.config['COMPRESS_MIN_SIZE'] = COMPRESS_SIZE
 OLD_DURATION = 20  # Period of beacons to keep
 Compress(app)
 BEACON_LOCATIONS = {"DE69F34B12FB": "Lvl 1 Fire Fighting Lobby",
